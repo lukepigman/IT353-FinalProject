@@ -31,6 +31,12 @@
             <p:commandButton type="button" value="Logout" icon="pi pi-home" />
         </f:facet>
     </p:menubar>
+    
+    <p:growl id="messages"/>
+    <p:sidebar widgetVar="sidebar1" position="top" baseZIndex="10000">
+    <h1 style="font-weight:normal">Successful Login!</h1>
+    <p:commandButton value="Cancel" oncomplete="PF('sidebar1').hide()"/>
+    </p:sidebar>
 </h:form>
         
         <i:form>
