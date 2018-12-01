@@ -25,8 +25,8 @@
          </p:submenu>
         
         <p:submenu label="Student" icon="pi pi-question">
-            <p:menuitem value="Login" action="StudentLogin.xhtml" />
-            <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+            <p:menuitem value="Login" action="Student.xhtml" />
+            <p:menuitem value="Signup" action="Student.xhtml" />
         </p:submenu>
  
         <p:submenu label="University" icon="pi pi-question">
@@ -51,7 +51,7 @@
     <p:growl id="messages11" showDetail="true"/>
  
     <p:contextMenu >
-        <p:menuitem value="Save"  update="messages" />
+        <p:menuitem value="Save"  update="messages" action="student.xhtml"/>
         <p:menuitem value="Update"  update="messages" />
         <p:menuitem value="Delete"  ajax="false" />
         <p:menuitem value="Homepage" url="http://www.primefaces.org" />
