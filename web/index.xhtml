@@ -17,9 +17,16 @@
     <p:menubar>
         <p:menuitem value="Home" icon="pi pi-file" action="index.xhtml"/>
  
+        <p:submenu label="Account"  >
+            <p:menuitem value="Account Info" action="PF('sidebar1').show()"   />
+            <p:menuitem value="Signup" action="PF('sidebar1').show()"   />
+            <p:menuitem value="Student Accounts" action="PF('sidebar1').show()"   />
+            <p:menuitem value="University Accounts" action="PF('sidebar1').show()"   />
+         </p:submenu>
+        
         <p:submenu label="Student" icon="pi pi-question">
-            <p:menuitem value="Login" action="StudentLogin.xhtml" />
-            <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+            <p:menuitem value="Login" action="Student.xhtml" />
+            <p:menuitem value="Signup" action="Student.xhtml" />
         </p:submenu>
  
         <p:submenu label="University" icon="pi pi-question">
@@ -28,8 +35,10 @@
         </p:submenu>
  
         <f:facet name="options">
-            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
-            <p:commandButton type="button" value="Logout" icon="pi pi-home" />
+            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Username"/>
+            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Password"/>
+            <p:commandButton value="Login" oncomplete="PF('sidebar1').show()" icon="pi pi-home" />
+            <p:commandButton value="Signup" oncomplete="PF('sidebar1').show()" icon="pi pi-home" />
         </f:facet>
     </p:menubar>
     
@@ -39,52 +48,10 @@
     <p:commandButton value="Cancel" oncomplete="PF('sidebar1').hide()"/>
     </p:sidebar>
     
-    <p:menubar>
-        
-        <p:submenu label="Account"  >
-            <p:menuitem value="Account Info" action="PF('sidebar1').show()"   />
-            <p:menuitem value="Signup" action="PF('sidebar1').show()"   />
-            <p:menuitem value="Student Accounts" action="PF('sidebar1').show()"   />
-            <p:menuitem value="University Accounts" action="PF('sidebar1').show()"   />
-         </p:submenu>
- 
-        <p:submenu label="Services" >
-            <p:menuitem value="Find Student Account" url="#" />
-            <p:menuitem value="Find School Account" url="#" />
-        </p:submenu>
-        
-        <p:submenu label="Help" >
-            <p:menuitem value="Contents" url="#" />
-            <p:submenu label="Search" >
-                <p:submenu label="Text">
-                    <p:menuitem value="Workspace" url="#" />
-                </p:submenu>
-                <p:menuitem value="File" url="#" />
-            </p:submenu>
-        </p:submenu>
- 
-        <p:submenu label="Actions" >
-            <p:submenu label="Browse Schools" >
-                <p:menuitem value="Save" action="#{menuView.save}"  update="messages"/>
-                <p:menuitem value="Update" action="#{menuView.update}"  update="messages"/>
-            </p:submenu>
-            <p:submenu label="Browse Local Area Images" >
-                <p:menuitem value="Delete" action="#{menuView.delete}"  update="messages" ajax="false"/>
-            </p:submenu>
-        </p:submenu>
-       
- 
-        <f:facet name="options">
-            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Username"/>
-            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Password"/>
-            <p:commandButton value="Login" oncomplete="PF('sidebar1').show()" icon="pi pi-home" />
-            <p:commandButton value="Signup" oncomplete="PF('sidebar1').show()" icon="pi pi-home" />
-        </f:facet>
-    </p:menubar>
     <p:growl id="messages11" showDetail="true"/>
  
     <p:contextMenu >
-        <p:menuitem value="Save"  update="messages" />
+        <p:menuitem value="Save"  update="messages" action="student.xhtml"/>
         <p:menuitem value="Update"  update="messages" />
         <p:menuitem value="Delete"  ajax="false" />
         <p:menuitem value="Homepage" url="http://www.primefaces.org" />
@@ -200,16 +167,9 @@
             </h:panelGrid>
         </p:tab>
     </p:accordionPanel>
-    
-    <p:stack icon="/resources/demo/images/dock/stack.png" expanded="true">
-    <p:menuitem value="Home" icon="/resources/demo/images/dock/home.png" url="#"/>
-    <p:menuitem value="Mussic" icon="/resources/demo/images/dock/music.png" url="#"/>
-    <p:menuitem value="Video" icon="/resources/demo/images/dock/video.png" url="#"/>
-    <p:menuitem value="Email" icon="/resources/demo/images/dock/email.png" url="#"/>
-    <p:menuitem value="Portfolio" icon="/resources/demo/images/dock/portfolio.png" url="#"/>
-</p:stack>
+   
 </h:form>
         
-        Featured University
+
     </h:body>
 </html>
