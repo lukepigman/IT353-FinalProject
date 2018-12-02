@@ -40,6 +40,7 @@ public class UniDAOImpl implements UniDAO{
             insertString = "INSERT INTO itkstu.UNIVERSITY VALUES ('"
                     + aProfile.getUniID()
                     + "','" + aProfile.getUniPass()
+                    + "','" + aProfile.getUniName()
                     + "','" + aProfile.getMajor()
                     + "','" + aProfile.getState()
                     + "','" + aProfile.getTown()
@@ -97,6 +98,7 @@ public class UniDAOImpl implements UniDAO{
                 // 2. Instead of using column name, can alternatively use: rs.getString(1); // not 0
                 String uniID = rs.getString("UNIVERSITYID");
                 String uniPass = rs.getString("PASSWORD");
+                String uniName = rs.getString("NAME");
                 String major = rs.getString("MAJOR");
                 String LOCAL = rs.getString("STATE");
                 String town = rs.getString("TOWN");
@@ -109,7 +111,7 @@ public class UniDAOImpl implements UniDAO{
 
                 
                 // make a ProfileBean object out of the values
-                aLoginBean = new UniBean(uniID, uniPass, major, LOCAL, town, zip, act, sat, about);
+                aLoginBean = new UniBean(uniID, uniPass,uniName, major, LOCAL, town, zip, act, sat, about);
                 // add the newly created object to the collection
                 aProfileBeanCollection.add(aLoginBean);
             }

@@ -12,6 +12,7 @@ package model;
 public class UniBean {
     private String uniID;
     private String uniPass;
+    private String uniName;
     private String major;
     private String state;
     private String town;
@@ -26,10 +27,11 @@ public class UniBean {
         
     }
     
-    public UniBean(String uniID, String uniPass, String major, String state, String town, String zip, String ACTReq, String SATReq, String about)
+    public UniBean(String uniID, String uniPass, String uniName, String major, String state, String town, String zip, String ACTReq, String SATReq, String about)
     {
         this.uniID = uniID;
         this.uniPass = uniPass;
+        this.uniName = uniName;
         this.major = major;
         this.state = state;
         this.town = town;
@@ -163,6 +165,20 @@ public class UniBean {
      */
     public void setUniPass(String uniPass) {
         this.uniPass = uniPass;
+    }
+
+    /**
+     * @return the uniName
+     */
+    public String getUniName() {
+        return uniName;
+    }
+
+    /**
+     * @param uniName the uniName to set
+     */
+    public void setUniName(String uniName) {
+        this.uniName = uniName;
     }
     
     

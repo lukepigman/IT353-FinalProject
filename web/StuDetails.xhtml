@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <h:head>You have been Successfully Logged in
+    <h:head><h:outputText id="uniName" value="#{uniController.theModel.uniName}"/>
     </h:head>
 
     <h:body>
@@ -36,7 +36,7 @@
         <h:form>
             <div class="form-group">
 
-                User ID: <h:outputText id="userID" value="#{uniController.theModel.uniID}"/> </div>
+                User ID: <h:outputText id="userID" value="#{uniController.theModel.uniName}"/> </div>
             <br></br>
             <label for="userID">Would you like to update your profile?</label> <br></br>
             <br></br>
