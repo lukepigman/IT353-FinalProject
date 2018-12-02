@@ -40,9 +40,9 @@ public class StudentDAOImpl implements StudentDAO{
                     + aProfile.getFirstName()
                     + "','" + aProfile.getLastName()
                     + "','" + aProfile.getUserID()
+                    + "','" + aProfile.getEmail()
                     + "','" + aProfile.getPassword()
                     + "','" + aProfile.getPasswordConfirm()
-                    + "','" + aProfile.getEmail()
                     + "','" + aProfile.getQuestion()
                     + "','" + aProfile.getAnswer()
                     + "','" + aProfile.getGPA()
@@ -105,9 +105,9 @@ public class StudentDAOImpl implements StudentDAO{
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String userID = rs.getString("userID");
+                String email = rs.getString("email");
                 String password = rs.getString("password");
                 String passwordConfirm = rs.getString("passwordConfirm");
-                String email = rs.getString("email");
                 String question = rs.getString("question");
                 String answer = rs.getString("answer");
                 String GPA = rs.getString("GPA");
