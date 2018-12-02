@@ -19,4 +19,5 @@ public interface UniDAO {
     public ArrayList findUniversity(String code);
     public int updateProfile(StudentBean stu);
     public ArrayList findLogin(String userID, String password);
+    
 }

@@ -229,5 +229,9 @@ public class StudentBean {
         this.majorChoice = majorChoice;
     }
     
+    public String toString(){
+        return userID + " " + email;
+    }
+    
     
 }

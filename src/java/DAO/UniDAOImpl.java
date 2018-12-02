@@ -47,6 +47,7 @@ public class UniDAOImpl implements UniDAO{
                     + "','" + aProfile.getACTReq()
                     + "','" + aProfile.getSATReq()
                     + "','" + aProfile.getAbout()
+                    
                     + "')";
 
             rowCount = stmt.executeUpdate(insertString);
@@ -68,7 +69,7 @@ public class UniDAOImpl implements UniDAO{
     public ArrayList findUserID(String userID) {
 
         String query = "SELECT * FROM ITKSTU.UNIVERSITY "
-                + "WHERE userID = '" + userID +"'";
+                + "WHERE UNIVERSITYID = '" + userID +"'";
                 
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
@@ -95,14 +96,15 @@ public class UniDAOImpl implements UniDAO{
                 // 1. if a float (say PRICE) is to be retrieved, use rs.getFloat("PRICE");
                 // 2. Instead of using column name, can alternatively use: rs.getString(1); // not 0
                 String uniID = rs.getString("UNIVERSITYID");
-                String uniPass = rs.getString("UNIPASS");
-                String LOCAL = rs.getString("LOCATION");
+                String uniPass = rs.getString("PASSWORD");
+                String major = rs.getString("MAJOR");
+                String LOCAL = rs.getString("STATE");
                 String town = rs.getString("TOWN");
                 String zip = rs.getString("ZIP");
                 String act= rs.getString("ACTREQ");
                 String sat = rs.getString("SATREQ");
-                String major = rs.getString("MAJOR");
                 String about = rs.getString("ABOUT");
+                
                 
 
                 
@@ -139,7 +141,7 @@ public class UniDAOImpl implements UniDAO{
 
         // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
         String query = "SELECT * FROM ITKSTU.UNIVERSITY "
-                + "WHERE USERID = '" + userID +"' and PASSWORD = '" + password +"'" ;
+                + "WHERE UNIVERSITYID = '" + userID +"' and PASSWORD = '" + password +"'" ;
                 
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;

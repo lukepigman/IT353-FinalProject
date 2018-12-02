@@ -22,6 +22,8 @@ public class StudentController {
     private String loginStatus;
     private String updateStatus;
     private String searchStatus;
+    private String result;
+    private String searchTest;
     
     
     
@@ -42,6 +44,16 @@ public class StudentController {
      */
     public void setTheModel(StudentBean theModel) {
         this.theModel = theModel;
+    }
+    public String getResult() {
+        return result;
+    }
+
+    /**
+     * @param theModel the theModel to set
+     */
+    public void setResult(String result) {
+        this.result = result;
     }
 
     /**
@@ -140,15 +152,33 @@ public class StudentController {
     
     public void search()
     {
+        int counter = 0;
         StudentDAOImpl aStu = new StudentDAOImpl();
-        ArrayList result = aStu.findStudentGPA(theModel.getGPA());
-        if(result != null)
+        ArrayList result1 = aStu.findStudentGPA(searchTest);
+        if(result1.size() > 0)
         {
-            setSearchStatus("Search results are:");
+            counter++;
+            result = result1.get(0).toString();
+            System.out.println(result);
         }
         else
         {
-            setSearchStatus("your search did not find anything");
+           counter++; 
+           result = Integer.toString(counter);
         }
     }   
+
+    /**
+     * @return the searchTest
+     */
+    public String getSearchTest() {
+        return searchTest;
+    }
+
+    /**
+     * @param searchTest the searchTest to set
+     */
+    public void setSearchTest(String searchTest) {
+        this.searchTest = searchTest;
+    }
 }

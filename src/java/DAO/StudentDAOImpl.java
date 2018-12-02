@@ -214,4 +214,16 @@ public class StudentDAOImpl implements StudentDAO{
         
     }
     
+    @Override
+    public ArrayList findAll() {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+        String query = "SELECT * FROM ITKSTU.STUDENT ";
+//                + "WHERE USERID = '" + userID +"' and PASSWORD = '" + password +"'" ;
+                
+        ArrayList aLoginCollection = selectProfilesFromDB(query);
+        return aLoginCollection;
+        
+    }
+    
 }

@@ -100,9 +100,10 @@ public class UniController {
         UniDAOImpl aLogin = new UniDAOImpl();
         ArrayList result  = aLogin.findLogin(theModel.getUniID(),theModel.getUniPass()); 
         setTheModel((UniBean) result.get(0));
+//        theModel.setUniID(result.get(0).toString());
         if(theModel != null)
         {
-            return "StudentEn.xhtml";
+            return "UniLog.xhtml";
         }
         else
         {

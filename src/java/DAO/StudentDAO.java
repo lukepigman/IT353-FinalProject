@@ -18,5 +18,5 @@ public interface StudentDAO {
     public ArrayList findStudentGPA(String GPA);
     public int updateProfile(StudentBean stu);
     public ArrayList findLogin(String userID, String password);
-    
+    public ArrayList findAll();
 }
