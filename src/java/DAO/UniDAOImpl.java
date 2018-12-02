@@ -18,7 +18,7 @@ import model.UniBean;
  *
  * @author awturne
  */
-public class UniDAOImpl implements UniDAO{
+public class UniDAOImpl implements UniDAO {
 
     @Override
     public int createProfile(UniBean aProfile) {
@@ -33,14 +33,12 @@ public class UniDAOImpl implements UniDAO{
         try {
             String myDB = "jdbc:derby://localhost:1527/Project353";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-            
 
             String insertString;
             Statement stmt = DBConn.createStatement();
             insertString = "INSERT INTO itkstu.UNIVERSITY VALUES ('"
                     + aProfile.getUniID()
                     + "','" + aProfile.getUniPass()
-                    + "','" + aProfile.getUniName()
                     + "','" + aProfile.getMajor()
                     + "','" + aProfile.getState()
                     + "','" + aProfile.getTown()
@@ -48,13 +46,13 @@ public class UniDAOImpl implements UniDAO{
                     + "','" + aProfile.getACTReq()
                     + "','" + aProfile.getSATReq()
                     + "','" + aProfile.getAbout()
-                    
+                    + "','" + aProfile.getUniName()
+                    + "','" + aProfile.getUniEmail()
                     + "')";
 
             rowCount = stmt.executeUpdate(insertString);
             System.out.println("insert string =" + insertString);
-            
-            
+
             DBConn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -63,26 +61,23 @@ public class UniDAOImpl implements UniDAO{
         // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
         return rowCount;
     }
-    
-
 
     @Override
     public ArrayList findUserID(String userID) {
 
         String query = "SELECT * FROM ITKSTU.UNIVERSITY "
-                + "WHERE UNIVERSITYID = '" + userID +"'";
-                
+                + "WHERE UNIVERSITYID = '" + userID + "'";
+
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
     }
-    
-    
+
     private ArrayList selectProfilesFromDB(String query) {
         ArrayList aProfileBeanCollection = new ArrayList();
         Connection DBConn = null;
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            
+
             String myDB = "jdbc:derby://localhost:1527/project353";
             // if doing the above in Oracle:  String myDB = "jdbc:oracle:thin:@oracle.itk.ilstu.edu:1521:ora478";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
@@ -99,19 +94,17 @@ public class UniDAOImpl implements UniDAO{
                 String uniID = rs.getString("UNIVERSITYID");
                 String uniPass = rs.getString("PASSWORD");
                 String uniName = rs.getString("NAME");
+                String email = rs.getString("EMAIL");
                 String major = rs.getString("MAJOR");
                 String LOCAL = rs.getString("STATE");
                 String town = rs.getString("TOWN");
                 String zip = rs.getString("ZIP");
-                String act= rs.getString("ACTREQ");
+                String act = rs.getString("ACTREQ");
                 String sat = rs.getString("SATREQ");
                 String about = rs.getString("ABOUT");
-                
-                
 
-                
                 // make a ProfileBean object out of the values
-                aLoginBean = new UniBean(uniID, uniPass,uniName, major, LOCAL, town, zip, act, sat, about);
+                aLoginBean = new UniBean(uniID, uniPass,  email, uniName, major, LOCAL, town, zip, act, sat, about);
                 // add the newly created object to the collection
                 aProfileBeanCollection.add(aLoginBean);
             }
@@ -132,31 +125,84 @@ public class UniDAOImpl implements UniDAO{
     @Override
     public ArrayList findUniversity(String code) {
         String query = "SELECT * FROM ITKSTU.UNIVERSITY "
-                + "WHERE UNIVERSITYID = '" + code +"'";
-                
+                + "WHERE UNIVERSITYID = '" + code + "'";
+
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
     }
-    
+
     @Override
     public ArrayList findLogin(String userID, String password) {
 
         // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
         String query = "SELECT * FROM ITKSTU.UNIVERSITY "
-                + "WHERE UNIVERSITYID = '" + userID +"' and PASSWORD = '" + password +"'" ;
-                
+                + "WHERE UNIVERSITYID = '" + userID + "' and PASSWORD = '" + password + "'";
+
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
-        
+
     }
-    
-    
 
     @Override
     public int updateProfile(StudentBean stu) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
+
+    @Override
+    public int updateProfile(UniBean pro) {
+        Connection DBConn = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        int rowCount = 0;
+        try {
+            String myDB = "jdbc:derby://localhost:1527/project353";
+            DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String updateString;
+            Statement stmt = DBConn.createStatement();
+
+            // SQL UPDATE Syntax [http://www.w3schools.com]:
+            // UPDATE table_name
+            // SET column1=value, column2=value2,...
+            // WHERE some_column=some_value
+            // Note: Notice the WHERE clause in the UPDATE syntax. The WHERE clause specifies which record or records that should be updated. If you omit the WHERE clause, all records will be updated!
+            updateString = "UPDATE ITKSTU.UNIVERSITY SET "
+                    + "STATE = '" + pro.getState() + "', "
+                    + "EMAIL= '" + pro.getUniEmail() + "', "
+                    + "TOWN = '" + pro.getTown() + "', "
+                    + "ZIP = '" + pro.getZip() + "' ,"
+                    + "ACTREQ = '" + pro.getACTReq() + "' ,"
+                    + "SATREQ = '" + pro.getSATReq() + "' ,"
+                    + "ABOUT = '" + pro.getAbout() + "' ,"
+                    + "PASSWORD = '" + pro.getUniPass() + "' ,"
+                    + "MAJOR = '" + pro.getMajor() + "' ,"
+                    + "NAME = '" + pro.getUniName() + " ' "
+                    + "WHERE UNIVERSITYID = '" + pro.getUniID() + "'";
+            rowCount = stmt.executeUpdate(updateString);
+            System.out.println("USERS updateString = " + updateString);
+
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
+        return rowCount;
+
+    }
+
+    @Override
+    public ArrayList recoverPass(String userID) {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+        String query = "SELECT * FROM ITKSTU.UNIVERSITY "
+                + "WHERE UNVERSITYID = '" + userID + "' ";
+
+        ArrayList aLoginCollection = selectProfilesFromDB(query);
+        return aLoginCollection;
+
+    }
+
 }

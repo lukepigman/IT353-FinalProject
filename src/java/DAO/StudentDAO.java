@@ -19,4 +19,5 @@ public interface StudentDAO {
     public int updateProfile(StudentBean stu);
     public ArrayList findLogin(String userID, String password);
     public ArrayList findAll();
+    public ArrayList recoverPass(String userID, String question, String answer, String email);
 }

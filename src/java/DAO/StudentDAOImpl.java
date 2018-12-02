@@ -118,7 +118,7 @@ public class StudentDAOImpl implements StudentDAO{
 
                 
                 // make a ProfileBean object out of the values
-                aLoginBean = new StudentBean(firstName, lastName, userID, password, passwordConfirm, email, question, answer, GPA, ACT, SAT, school, major);
+                aLoginBean = new StudentBean(firstName, lastName, userID, email, password, passwordConfirm,  question, answer, GPA, ACT, SAT, school, major);
                 // add the newly created object to the collection
                 aProfileBeanCollection.add(aLoginBean);
             }
@@ -149,10 +149,7 @@ public class StudentDAOImpl implements StudentDAO{
         try {
             String myDB = "jdbc:derby://localhost:1527/project353";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
-
-
             String updateString;
-            String loginUpdate;
             Statement stmt = DBConn.createStatement();
 
             // SQL UPDATE Syntax [http://www.w3schools.com]:
@@ -161,28 +158,23 @@ public class StudentDAOImpl implements StudentDAO{
             // WHERE some_column=some_value
             // Note: Notice the WHERE clause in the UPDATE syntax. The WHERE clause specifies which record or records that should be updated. If you omit the WHERE clause, all records will be updated!
             updateString = "UPDATE ITKSTU.STUDENT SET "
-                    + "firstName = '" + pro.getFirstName() + "', "
-                    + "lastName = '" + pro.getLastName() + "', "
-                    + "password = '" + pro.getPassword() + "', "
-                    + "passwordConfirm = '" + pro.getPasswordConfirm() + "' ,"
-                    + "email = '" + pro.getEmail() + "' ,"
-                    + "question = '" + pro.getQuestion() + "' ,"
-                    + "answer = '" + pro.getAnswer() + "' ,"
-                    + "answer = '" + pro.getGPA() + "' ,"
-                    + "answer = '" + pro.getACT() + "' ,"
-                    + "answer = '" + pro.getSAT() + "' ,"
-                    + "answer = '" + pro.getSchoolChoice() + "' ,"
-                    + "answer = '" + pro.getMajorChoice() + "' ,"
-                    + "WHERE userID = '" + pro.getUserID() + "'";
+                    + "FIRSTNAME = '" + pro.getFirstName() + "', "
+                    + "LASTNAME = '" + pro.getLastName() + "', "
+                    + "PASSWORD = '" + pro.getPassword() + "', "
+                    + "PASSWORDCONFIRM = '" + pro.getPasswordConfirm() + "' ,"
+                    + "EMAIL = '" + pro.getEmail() + "' ,"
+                    + "QUESTION = '" + pro.getQuestion() + "' ,"
+                    + "ANSWER = '" + pro.getAnswer() + "' ,"
+                    + "GPA = '" + pro.getGPA() + "' ,"
+                    + "ACT = '" + pro.getACT() + "' ,"
+                    + "SAT = '" + pro.getSAT() + "' ,"
+                    + "SCHOOLCHOICE = '" + pro.getSchoolChoice() + "' ,"
+                    + "MAJORCHOICE = '" + pro.getMajorChoice() + "'"
+                    + "WHERE USERID = '" + pro.getUserID() + "'";
             rowCount = stmt.executeUpdate(updateString);
             System.out.println("USERS updateString = " + updateString);
             
-            
-            loginUpdate = "UPDATE ITKSTU.LOGIN SET "
-                    + "password = '" + pro.getPassword() + "'" 
-                    + "WHERE userID = '" + pro.getUserID() + "'";
-            stmt.executeUpdate(loginUpdate);
-            System.out.println("LOGIN updateString" + loginUpdate);
+           
             DBConn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -190,7 +182,19 @@ public class StudentDAOImpl implements StudentDAO{
         // if insert is successful, rowCount will be set to 1 (1 row inserted successfully). Else, insert failed.
         return rowCount;
 
+    } 
+@Override
+    public ArrayList recoverPass(String userID, String question, String answer, String email) {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+        String query = "SELECT * FROM ITKSTU.STUDENT "
+               + "WHERE USERID = '" + userID +"' and EMAIL = '" + email +"'  and QUESTION = '" + question + "' and ANSWER = '" + answer + "'";
+                
+        ArrayList aLoginCollection = selectProfilesFromDB(query);
+        return aLoginCollection;
+        
     }
+
 
     @Override
     public ArrayList findStudentGPA(String GPA) {

@@ -32,6 +32,9 @@ public class StudentController {
     private String searchStatus;
     private String result;
     private String searchTest;
+    private String text;
+    private String subject;
+    private String recover;
     
     
     
@@ -146,17 +149,7 @@ public class StudentController {
         else
             return "error.xhtml";
     }
-    
-    public void updateThis() {
-        StudentDAOImpl aProfileDAO = new StudentDAOImpl();    // Creating a new object each time.
-        int status = aProfileDAO.updateProfile(getTheModel()); // Doing anything with the object after this?
-        if (status != 0) {
-            setUpdateStatus("Record updated successfully ");
-        } else {
-            setUpdateStatus("Record update failed!");
-        }
 
-    }
     
     public void search()
     {
@@ -177,15 +170,15 @@ public class StudentController {
     }   
 
     public void sendEmail() {
-
+        
         // Recipient's email ID needs to be mentioned.
         String to = theModel.getEmail();
 
         // Sender's email ID needs to be mentioned
-        String from = "xxx@ilstu.edu";
+        String from = "IT353Uconnect@gmail.com";
         
         // Assuming you are sending email from this host
-        String host = "outlook.office365.com";
+        String host = "smtp.gmail.com";
 
         // Get system properties
         Properties properties = System.getProperties();
@@ -198,7 +191,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("ldpigma@istu.edu", "your password");
+                return new PasswordAuthentication("IT353Uconnect@gmail.com" , "itkstuadmin");
             }
         });
 
@@ -227,6 +220,91 @@ public class StudentController {
             mex.printStackTrace();
         }
     }
+    
+    
+     public void sendPasswordEmail() {
+        
+        // Recipient's email ID needs to be mentioned.
+        String to = theModel.getEmail();
+
+        // Sender's email ID needs to be mentioned
+        String from = "IT353Uconnect@gmail.com";
+        
+        // Assuming you are sending email from this host
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.setProperty("mail.smtp.host", host);
+        properties.setProperty("mail.smtp.starttls.enable", "true");
+        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.port", "587");
+        // Get the default Session object.
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("IT353Uconnect@gmail.com" , "itkstuadmin");
+            }
+        });
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("Password");
+
+            // Send the actual HTML message, as big as you like
+       
+            message.setContent("<p>Hello " + theModel.getEmail() + ", your password is: " + theModel.getPassword() +"</p>" , "text.html");
+
+            // Send message
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+    
+    public void updateThis() {
+        StudentDAOImpl aProfileDAO = new StudentDAOImpl();    // Creating a new object each time.
+        int status = aProfileDAO.updateProfile(theModel); // Doing anything with the object after this?
+        if (status != 0) {
+            setUpdateStatus("Record updated successfully ");
+        } else {
+            setUpdateStatus("Record update failed!");
+        }
+
+    }
+
+/**
+     * @return the updateStatus
+     */
+
+
+public void recoverPass()
+    {
+        StudentDAOImpl aLoginDAO = new StudentDAOImpl();
+        ArrayList result = aLoginDAO.recoverPass(theModel.getUserID(),theModel.getEmail(),theModel.getQuestion(),theModel.getAnswer());
+        setTheModel((StudentBean) result.get(0));
+        if (getTheModel() != null)
+        {
+            sendPasswordEmail();
+            recover = "an Email will be sent to " + theModel.getEmail();
+        }
+        else
+            recover =  "error.xhtml";
+    }
+
+    
     /**
      * @return the searchTest
      */
@@ -240,4 +318,33 @@ public class StudentController {
     public void setSearchTest(String searchTest) {
         this.searchTest = searchTest;
     }
+
+    /**
+     * @return the text
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * @param text the text to set
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * @return the subject
+     */
+    public String getSubject() {
+        return subject;
+    }
+
+    /**
+     * @param subject the subject to set
+     */
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+    
 }

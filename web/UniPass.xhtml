@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:i="http://xmlns.jcp.org/jsf/html">
-     
-    <h:head>Student Login Page
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>Recover your Password
     </h:head>
- 
+
     <h:body>
-        
-<h:form>  
-    <p:growl id="messages"/>
- 
-    <p:menubar>
+        <h:outputStylesheet library="css" name="newcss.css"  />
+        <h:form>  
+
+            <p:growl id="messages2"/>
+
+            <p:menubar>
                 <p:menuitem value="home" icon="pi pi-file" action="index.xhtml"/>
 
                 <p:submenu label="Student" icon="pi pi-question">
@@ -37,19 +37,22 @@
                 </f:facet>
 
             </p:menubar>
-</h:form>
-        
-        <i:form>
-                        
-            <label for="userID">User ID</label><br></br>
-                <i:inputText value="#{studentController.theModel.userID}" id="userID" /><br></br>
-                        <br></br>
-            <label for="password">Password</label>
-            <i:inputSecret value="#{studentController.theModel.password}" id="password"/><br></br>
-                        
-            <i:commandButton class="btn btn-default btn-block btn-sm btn-success" value="Login" action="#{studentController.login()}" /><br></br>
-            <h:outputText value="#{StudentController.loginStatus}" id="updateStatus"/><br></br>
-                        <br></br>
-            </i:form>
+
+
+
+
+            <label for="uniID">Enter University ID</label><br></br>
+            <h:inputText  id="uniID" value="#{uniController.theModel.uniID}"/><br></br>
+            <br></br>
+            <label for="email">Email</label>
+            <h:inputText class="form-control input-sm" id="email" required="true" label="email"  requiredMessage="Please enter your email address." validatorMessage="Invalid email format" value="#{uniController.theModel.uniEmail}">
+                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+            </h:inputText>
+            <h:commandButton value="Login" action="#{uniController.recoverPass()}" /><br></br>
+            <h:outputText value="#{uniController.recover}" id="updateStatus"/><br></br>
+        </h:form>   
+
     </h:body>
 </html>
+
+

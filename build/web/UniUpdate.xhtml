@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>Update University Account
+    </h:head>
+
+    <h:body>
+        <h:form>
+            <label for="uniID">Enter University ID</label><br></br>
+            <h:outputText  id="uniID" value="#{uniController.theModel.uniID}"/><br></br>
+            <br></br>
+            <label for="uniPass">Enter University Password</label><br></br>
+            <h:inputText  id="uniPass" value="#{uniController.theModel.uniPass}"/><br></br>
+            <br></br>
+            <label for="email">Email</label><br></br>
+            <h:inputText id="email" required="true" label="email"  requiredMessage="Please enter your email address." validatorMessage="Invalid email format" value="#{uniController.theModel.uniEmail}"/><br></br>
+            <!--   <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />-->
+
+            <label for="name">Enter University Name</label><br></br>
+            <h:inputText  id="name" value="#{uniController.theModel.uniName}"/><br></br>
+            <br></br>
+            <label for="SAT">Enter University Location State</label><br></br>
+            <h:inputText  id="state" value="#{uniController.theModel.state}"/><br></br>
+            <br></br>
+            <label for="town">Enter University Home Town</label><br></br>
+            <h:inputText  id="town" value="#{uniController.theModel.town}"/><br></br>
+            <br></br>
+            <label for="zip">Enter University Zip Code</label><br></br>
+            <h:inputText  id="zip" value="#{uniController.theModel.zip}"/><br></br>
+            <br></br>
+            <label for="ACT">Enter University ACT Requirement</label><br></br>
+            <h:inputText  id="ACT" value="#{uniController.theModel.ACTReq}"/><br></br>
+            <br></br>
+            <label for="SAT">Enter University SAT Requirements</label><br></br>
+            <h:inputText  id="SAT" value="#{uniController.theModel.SATReq}"/><br></br>
+            <br></br>
+            <label for="major">Enter University offered Major</label><br></br>
+            <h:inputText  id="Major" value="#{uniController.theModel.major}"/><br></br>
+            <br></br>
+            <label for="about">Enter any other relevant information about University</label><br></br>
+            <h:inputText  id="about" value="#{uniController.theModel.about}"/><br></br>
+            <br></br>
+
+            <h:commandButton  value="Submit" action="#{uniController.updateThis()}"  />
+            <h:commandButton  value="Homme" action="UniLog.xhtml"  />
+            <br></br>
+            <h:outputText value="#{uniController.updateStatus}" id="updateStatus"/><br></br>
+
+        </h:form>
+
+    </h:body>
+</html>
+
+
