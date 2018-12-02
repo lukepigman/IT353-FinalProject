@@ -55,14 +55,6 @@ public class StudentDAOImpl implements StudentDAO{
             rowCount = stmt.executeUpdate(insertString);
             System.out.println("insert string =" + insertString);
             
-            String insertLogin;
-            Statement stmt2 = DBConn.createStatement();
-            insertLogin = "INSERT INTO itkstu.LOGIN VALUES ('"
-                     + aProfile.getUserID()
-                    + "','" + aProfile.getPassword()
-                    + "')";
-            stmt2.executeUpdate(insertLogin);
-            System.out.println("Login Info: " + insertLogin);
             DBConn.close();
         } catch (SQLException e) {
             System.err.println(e.getMessage());

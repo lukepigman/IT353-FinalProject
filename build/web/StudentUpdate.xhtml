@@ -60,7 +60,8 @@ and open the template in the editor.
                 <label for="major">Enter your preferred Major of Study</label><br></br>
                 <h:inputText  id="major" value="#{studentController.theModel.majorChoice}"/><br></br>
                 <br></br>
-                <h:commandButton id="submitID" value="Update" action="#{studentController.updateThis()}"/><br></br><br></br>
+                <h:commandButton id="submitID" value="Update" action="#{studentController.updateThis()}"/>
+                <h:commandButton id="Home" value="Update" action="studentEn.xhtml"/><br></br><br></br>
                 <h:outputText value="#{studentController.updateStatus}" id="updateStatus"/><br></br>
                 <br></br>
                 
