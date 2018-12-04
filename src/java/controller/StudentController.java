@@ -174,7 +174,7 @@ public class StudentController {
     public String sendEmail() {
 
         // Recipient's email ID needs to be mentioned.
-        String to = "ldpigma@ilstu.edu";
+        String to = theModel.getEmail();
 
         // Sender's email ID needs to be mentioned
         String from = "IT353Uconnect@gmail.com";

@@ -35,7 +35,7 @@
             </p:menubar>
         </h:form>
         <div class="basicPanel" style="font-weight: bold">
-            <h:outputText id="firstName" value="#{studentController.theModel.firstName}"/>  <h:outputText id="lastName" value="#{studentController.theModel.lastName}"/> 
+            <h:outputText id="firstName" value="#{studentController.theModel.firstName}"/><p> </p><h:outputText id="lastName" value="#{studentController.theModel.lastName}"/> 
          
         </div>
 
@@ -43,9 +43,9 @@
             <div class="form-group">
 
              <u>Preferences</u>
-             <h:outputText id="school" value="#{studentController.theModel.schoolChoice}"/> 
-            ,
-            <h:outputText id="major" value="#{studentController.theModel.majorChoice}"/>
+             School of Choice: <h:outputText id="school" value="#{studentController.theModel.schoolChoice}"/> 
+             <br></br>
+            Major of Choice: <h:outputText id="major" value="#{studentController.theModel.majorChoice}"/>
             <br></br>
            
             <u> Academics</u>
