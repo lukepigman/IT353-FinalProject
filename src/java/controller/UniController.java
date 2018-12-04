@@ -150,7 +150,7 @@ public class UniController {
     public void sendPasswordEmail() {
         
         // Recipient's email ID needs to be mentioned.
-        String to = theModel.getUniEmail();
+        String to = "ldpigma@ilstu.edu";
 
         // Sender's email ID needs to be mentioned
         String from = "IT353Uconnect@gmail.com";
@@ -189,8 +189,8 @@ public class UniController {
 
             // Send the actual HTML message, as big as you like
        
-            message.setContent("<p>Hello " + theModel.getUniEmail() + ", your password is: " + theModel.getUniPass() +"</p>" , "text.html");
-
+//            message.setContent("<p>Hello " + theModel.getUniEmail() + ", your password is: " + theModel.getUniPass() +"</p>" , "text.html");
+    message.setContent("Placeholder","html/css");
             // Send message
             Transport.send(message);
             System.out.println("Sent message successfully....");

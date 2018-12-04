@@ -8,8 +8,10 @@ package controller;
 import DAO.StudentDAOImpl;
 import java.util.ArrayList;
 import java.util.Properties;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -220,11 +222,12 @@ public class StudentController {
         }
         return "UniLog.xhtml";
     }
+    
 
     public void sendPasswordEmail() {
 
         // Recipient's email ID needs to be mentioned.
-        String to = theModel.getEmail();
+        String to = "ldpigma@ilstu.edu";
 
         // Sender's email ID needs to be mentioned
         String from = "IT353Uconnect@gmail.com";
