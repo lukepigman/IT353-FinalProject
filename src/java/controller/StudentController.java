@@ -26,6 +26,7 @@ import model.StudentBean;
 @ManagedBean
 @SessionScoped
 public class StudentController {
+
     private StudentBean theModel;
     private String loginStatus;
     private String updateStatus;
@@ -35,14 +36,11 @@ public class StudentController {
     private String text;
     private String subject;
     private String recover;
-    
-    
-    
-    public StudentController()
-    {
+
+    public StudentController() {
         theModel = new StudentBean();
     }
-    
+
     /**
      * @return the theModel
      */
@@ -56,6 +54,7 @@ public class StudentController {
     public void setTheModel(StudentBean theModel) {
         this.theModel = theModel;
     }
+
     public String getResult() {
         return result;
     }
@@ -80,7 +79,7 @@ public class StudentController {
     public void setLoginStatus(String loginStatus) {
         this.loginStatus = loginStatus;
     }
-    
+
     /**
      * @return the updateStatus
      */
@@ -108,75 +107,76 @@ public class StudentController {
     public void setSearchStatus(String searchStatus) {
         this.searchStatus = searchStatus;
     }
-    
-    
-    
-    
+
     public String createLogin() {
         StudentDAOImpl aProfileDAO = new StudentDAOImpl();    // Creating a new object each time.
         int status = aProfileDAO.createProfile(theModel); // Doing anything with the object after this?
-        if (status == 1)
+        if (status == 1) {
             return "StudentEn.xhtml";
-        else
-            return "index.xhtml"; 
+        } else {
+            return "index.xhtml";
+        }
     }
-    
-    public String login() 
-    {
+
+    public String login() {
         StudentDAOImpl aLoginDAO = new StudentDAOImpl();    // Creating a new object each time.
-        ArrayList result  = aLoginDAO.findLogin(theModel.getUserID(),theModel.getPassword()); 
+        ArrayList result = aLoginDAO.findLogin(theModel.getUserID(), theModel.getPassword());
         setTheModel((StudentBean) result.get(0));
-        if(theModel != null)
-        {
+        if (theModel != null) {
             return "StudentEn.xhtml";
-        }
-        else
-        {
+        } else {
             setLoginStatus("Login Failed");
-            return "StudentLogin.xhtml"; 
+            return "StudentLogin.xhtml";
         }
     }
-    
-    public String findProfile()
-    {
+
+    public String findProfile() {
         StudentDAOImpl aLoginDAO = new StudentDAOImpl();
         ArrayList result = aLoginDAO.findUserID(getTheModel().getUserID());
         setTheModel((StudentBean) result.get(0));
-        if (getTheModel() != null)
-        {
+        if (getTheModel() != null) {
             return "StudentUpdate.xhtml";
-        }
-        else
+        } else {
             return "error.xhtml";
+        }
     }
-
     
-    public void search()
-    {
+//     public String selectProfile() {
+//        StudentDAOImpl aLoginDAO = new StudentDAOImpl();
+//        ArrayList result = aLoginDAO.findUserID(getTheModel().getUserID());
+//        setTheModel((StudentBean) result.get(0));
+//        if (getTheModel() != null) {
+//            return "StuDetails.xhtml";
+//        } else {
+//            return "error.xhtml";
+//        }
+//     }
+        
+        
+    
+
+    public void search() {
         int counter = 0;
         StudentDAOImpl aStu = new StudentDAOImpl();
         ArrayList result1 = aStu.findStudentGPA(searchTest);
-        if(result1.size() > 0)
-        {
+        if (result1.size() > 0) {
             counter++;
             result = result1.get(0).toString();
             System.out.println(result);
+        } else {
+            counter++;
+            result = Integer.toString(counter);
         }
-        else
-        {
-           counter++; 
-           result = Integer.toString(counter);
-        }
-    }   
+    }
 
-    public void sendEmail() {
-        
+    public String sendEmail() {
+
         // Recipient's email ID needs to be mentioned.
-        String to = theModel.getEmail();
+        String to = "ldpigma@ilstu.edu";
 
         // Sender's email ID needs to be mentioned
         String from = "IT353Uconnect@gmail.com";
-        
+
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
@@ -191,7 +191,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("IT353Uconnect@gmail.com" , "itkstuadmin");
+                return new PasswordAuthentication("IT353Uconnect@gmail.com", "itkstuadmin");
             }
         });
 
@@ -207,11 +207,10 @@ public class StudentController {
                     new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Congratulations!");
+            message.setSubject( subject, "text/html");
 
             // Send the actual HTML message, as big as you like
-            message.setContent("<h1>You have been promoted to the VP of Student Affairs!</h1>",
-                    "text/html");
+            message.setContent( text , "text/html");
 
             // Send message
             Transport.send(message);
@@ -219,17 +218,17 @@ public class StudentController {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
+        return "UniLog.xhtml";
     }
-    
-    
-     public void sendPasswordEmail() {
-        
+
+    public void sendPasswordEmail() {
+
         // Recipient's email ID needs to be mentioned.
         String to = theModel.getEmail();
 
         // Sender's email ID needs to be mentioned
         String from = "IT353Uconnect@gmail.com";
-        
+
         // Assuming you are sending email from this host
         String host = "smtp.gmail.com";
 
@@ -244,7 +243,7 @@ public class StudentController {
         // Get the default Session object.
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("IT353Uconnect@gmail.com" , "itkstuadmin");
+                return new PasswordAuthentication("IT353Uconnect@gmail.com", "itkstuadmin");
             }
         });
 
@@ -263,8 +262,7 @@ public class StudentController {
             message.setSubject("Password");
 
             // Send the actual HTML message, as big as you like
-       
-            message.setContent("<p>Hello " + theModel.getEmail() + ", your password is: " + theModel.getPassword() +"</p>" , "text.html");
+            message.setContent("<p>Hello " + theModel.getEmail() + ", your password is: " + theModel.getPassword() + "</p>", "text.html");
 
             // Send message
             Transport.send(message);
@@ -273,7 +271,7 @@ public class StudentController {
             mex.printStackTrace();
         }
     }
-    
+
     public void updateThis() {
         StudentDAOImpl aProfileDAO = new StudentDAOImpl();    // Creating a new object each time.
         int status = aProfileDAO.updateProfile(theModel); // Doing anything with the object after this?
@@ -285,26 +283,21 @@ public class StudentController {
 
     }
 
-/**
+    /**
      * @return the updateStatus
      */
-
-
-public void recoverPass()
-    {
+    public void recoverPass() {
         StudentDAOImpl aLoginDAO = new StudentDAOImpl();
-        ArrayList result = aLoginDAO.recoverPass(theModel.getUserID(),theModel.getEmail(),theModel.getQuestion(),theModel.getAnswer());
+        ArrayList result = aLoginDAO.recoverPass(theModel.getUserID(), theModel.getEmail(), theModel.getQuestion(), theModel.getAnswer());
         setTheModel((StudentBean) result.get(0));
-        if (getTheModel() != null)
-        {
+        if (getTheModel() != null) {
             sendPasswordEmail();
             recover = "an Email will be sent to " + theModel.getEmail();
+        } else {
+            recover = "error.xhtml";
         }
-        else
-            recover =  "error.xhtml";
     }
 
-    
     /**
      * @return the searchTest
      */
@@ -346,5 +339,5 @@ public void recoverPass()
     public void setSubject(String subject) {
         this.subject = subject;
     }
-    
+
 }

@@ -18,7 +18,9 @@ and open the template in the editor.
         <div>Contact a student</div>
         <h:form id="theForm">
          Subject: <h:inputText id="subject" value="#{studentController.subject}"/>
-         Message: <h:inputText id="mesaage" value="#{studentController.text}"
+         <br></br>
+         Message: <h:inputTextarea id="mesaage" value="#{studentController.text}"/>
+         
                                 
         <h:commandButton value="send" action="#{studentController.sendEmail()}"/>
         </h:form>

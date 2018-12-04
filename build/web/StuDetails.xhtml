@@ -5,8 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-    <h:head><h:outputText id="uniName" value="#{uniController.theModel.uniName}"/>
+   
+    <h:head><h:outputText id="StudentName" value="#{studentController.theModel.firstName}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     </h:head>
 
@@ -35,24 +35,24 @@
             </p:menubar>
         </h:form>
         <div class="basicPanel" style="font-weight: bold">
-             <h:outputText id="Name" value="#{uniController.theModel.uniName}"/> 
+            <h:outputText id="firstName" value="#{studentController.theModel.firstName}"/>  <h:outputText id="lastName" value="#{studentController.theModel.lastName}"/> 
          
         </div>
 
         <h:form>
             <div class="form-group">
 
-               
-            <h:outputText id="town" value="#{uniController.theModel.town}"/> 
+             <u>Preferences</u>
+             <h:outputText id="school" value="#{studentController.theModel.schoolChoice}"/> 
             ,
-            <h:outputText id="state" value="#{uniController.theModel.state}"/>
+            <h:outputText id="major" value="#{studentController.theModel.majorChoice}"/>
             <br></br>
            
             <u> Academics</u>
             <br></br>
-            ACT: <h:outputText id="actReq" value="#{uniController.theModel.ACTReq}"/>
+            ACT: <h:outputText id="actScore" value="#{studentController.theModel.ACT}"/>
             <br></br>
-            SAT: <h:outputText id="satReq" value="#{uniController.theModel.SATReq}"/>
+            SAT: <h:outputText id="satScore" value="#{studentController.theModel.SAT}"/>
             <br></br>
             <label for="userID">Contact Student</label> <br></br>
             <br></br>
