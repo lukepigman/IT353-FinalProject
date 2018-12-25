@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+    
+        <f:event type="preRenderView" listener="#{uniController.grabAllShowcase()}" />
+    </f:metadata>
+     
+    <h:head>
+    </h:head>
+ 
+    <h:body class="red">
+        <h:outputStylesheet library="css" name="newcss.css"  />
+<h:form>  
+    
+    <p:growl id="messages2"/>
+ 
+    <p:menubar id="tb" class="yoyom">
+        <p:menuitem >
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index.xhtml"/>
+
+                <p:submenu label="Student" icon="pi pi-question">
+                    <p:menuitem value="Login" action="StudentLogin.xhtml" />
+                    <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="StudentPass.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="University" icon="pi pi-question">
+                    <p:menuitem value="Login" action="UniversityLogin.xhtml" />
+                    <p:menuitem value="Signup" action="UniversitySignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="UniPass.xhtml" />
+                </p:submenu>
+
+
+                <f:facet name="options">
+                    <p:commandButton type="button" value="Logout" action="index.xhtml" />
+                    
+                </f:facet>
+
+            </p:menubar>
+    <p:sticky target="tb" />
+    
+    <p:growl id="messages"/>
+    
+    
+    
+    <p:growl id="messages11" showDetail="true"/>
+ 
+    
+    
+    <p:fieldset class="cont"  style="margin-bottom:1px; height: auto">
+    <h:panelGrid columns="2" cellpadding="5">
+            <p:graphicImage value="resources/images/pic12.PNG" />
+            <h:outputText
+                value="LinkedU is focused on providing the best college recruit" />
+        </h:panelGrid>
+        
+        <p:dataScroller id ="car2" value="#{uniController.showcase}" var="car" chunkSize="5">
+        <h:panelGrid columns="2" style="width:auto" columnClasses="logo,detail">
+            <p:graphicImage style="margin-right: 5px" value="resources/images/#{car.about}" /> 
+ 
+            <p:outputPanel style="margin: 0; float: left  ">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{car.uniName}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Year:" />
+                    <h:outputText value="#{car.uniID}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Color:" />
+                    <h:outputText value="#{car.zip}" style="font-weight: bold"/>
+                    
+                    
+                    <p:commandButton value="Click to add to Showcase" action="#{uniController.setToShowcase(car.uniID)}" update="car2"/>
+                    <p:commandButton value="Click to remove from Showcase" action="#{uniController.removeShowcase(car.uniID)}" update="car2"/>
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+    </p:dataScroller>
+        
+        </p:fieldset>
+     
+<!--    <p:fieldset class="cont"  style="margin-bottom:1px; height: auto">
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:graphicImage value="resources/images/pic12.PNG" />
+            <h:outputText
+                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+        </h:panelGrid>
+        
+        <h:panelGrid columns="2" cellpadding="5" class="cont2">
+            <p:graphicImage value="resources/images/pic7.jpg" />
+            <h:outputText
+                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+            <p:commandButton value="Click to see ISU's homepage!" style="position: center" />
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellpadding="5" style="margin-top: 5px" class="cont4">
+            <p:graphicImage value="resources/images/pic13.jpg" />
+            <h:outputText
+                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+            <p:commandButton value="Click to see UofI's homepage!" style="position: center" />
+        </h:panelGrid>
+        <h:panelGrid columns="2" cellpadding="5" style="margin-top: 5px" class="cont5">
+            <p:graphicImage value="resources/images/pic16.png" />
+            <h:outputText
+                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                but given to ruthless violence whenever anything stands against the good of the family." />
+            <p:commandButton value="Click to see EIU's homepage!" style="position: center" />
+        </h:panelGrid>
+    </p:fieldset>-->
+    
+    
+    
+    
+    
+    
+    
+</h:form>
+    </h:body>
+</html>

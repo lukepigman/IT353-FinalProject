@@ -33,8 +33,7 @@
 
 
                 <f:facet name="options">
-                    <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
-                    <p:commandButton type="button" value="Logout" icon="pi pi-home" />
+                    
                 </f:facet>
 
             </p:menubar>
@@ -69,7 +68,9 @@
             <h:inputText  id="ACT" value="#{uniController.theModel.ACTReq}"/><br></br>
             <br></br>
             <label for="SAT">Enter University SAT Requirements</label><br></br>
-            <h:inputText  id="SAT" value="#{uniController.theModel.SATReq}"/><br></br>
+            <h:inputText  id="SAT" value="#{uniController.theModel.SATReq}"><br></br>
+            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+            </h:inputText>
             <br></br>
             <label for="major">Enter University offered Major</label><br></br>
             <h:inputText  id="Major" value="#{uniController.theModel.major}"/><br></br>

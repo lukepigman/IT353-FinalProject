@@ -197,5 +197,9 @@ public class UniBean {
         this.uniEmail = uniEmail;
     }
     
+    public String toString(){
+        return uniID;
+    }
+    
     
 }

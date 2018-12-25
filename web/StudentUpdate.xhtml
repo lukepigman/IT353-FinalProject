@@ -19,7 +19,38 @@ and open the template in the editor.
 
         
             <h:form>
-                <label for="firstName">First Name</label><br></br>
+                
+                <p:menubar id="tb" style="margin: 0; background: black">
+        <p:menuitem >
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index2.xhtml"/>
+
+                <p:submenu label="Student" >
+                    <p:menuitem value="Login" action="StudentLogin.xhtml" />
+                    <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="StudentPass.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="University" icon="pi pi-question">
+                    <p:menuitem value="Login" action="UniversityLogin.xhtml" />
+                    <p:menuitem value="Signup" action="UniversitySignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="UniPass.xhtml" />
+                </p:submenu>
+
+
+                <f:facet name="options">
+                    <p:outputLabel value="Welcome back,  #{studentController.theModel.firstName} #{studentController.theModel.lastName}"/>
+                    <p:commandButton  value="Logout" action="index.xhtml"/>
+                </f:facet>
+
+            </p:menubar>
+                </h:form>
+        <h:form>
+                <h:panelGrid columns="2" cellpadding="5" >
+       
+                    
+        <label for="firstName">First Name</label><br></br>
                 <h:inputText id="firstName" value="#{studentController.theModel.firstName}" required="true" requiredMessage="Please enter First Name"/><br></br>
                 <!-- <f:validateLength minimum = "2"  maximum = "25" /> --><br></br>
                 <br></br>
@@ -32,7 +63,58 @@ and open the template in the editor.
                 <br></br>
                 <label for="email">Email</label><br></br>
                 <h:inputText class="form-control input-sm" id="email" required="true" label="email"  requiredMessage="Please enter your email address." validatorMessage="Invalid email format" value="#{studentController.theModel.email}"/><br></br>
-                <!--<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />--><br></br>
+                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /><br></br>
+                <label for="question">Security Question</label><br></br>
+                <h:inputText id="question" value="#{studentController.theModel.question}" required="true" requiredMessage="Please enter Security Question"/><br></br>
+                <br></br>
+                <label for="answer">Security Answer</label><br></br>
+                <h:inputText id="answer" value="#{studentController.theModel.answer}" required="true" requiredMessage="Please answer your Security Question"/><br></br>
+                <br></br>
+                <label for="password">Password</label><br></br>
+                <h:inputSecret id="password" value="#{studentController.theModel.password}" validatorMessage="Invalid Password format" required="true" requiredMessage="Please enter Password"/><br></br>
+                <br></br>
+                <label for="password2">Confirm Password</label><br></br>
+                <h:inputSecret  id="password2" value="#{studentController.theModel.passwordConfirm}"  required="true" requiredMessage="Please confirm Password"/><br></br>
+                <br></br>
+                <label for="GPA">Enter your High School GPA</label><br></br>
+                <h:inputText  id="GPA" value="#{studentController.theModel.GPA}"/><br></br>
+                <br></br>
+                <label for="ACT">Enter your ACT Score</label><br></br>
+                <h:inputText  id="ACT" value="#{studentController.theModel.ACT}"/><br></br>
+                <br></br>
+                <label for="SAT">Enter your SAT Score</label><br></br>
+                <h:inputText  id="SAT" value="#{studentController.theModel.SAT}"/><br></br>
+                <br></br>
+                <label for="school">Enter your preferred University</label><br></br>
+                <h:inputText  id="school" value="#{studentController.theModel.schoolChoice}"/><br></br>
+                <br></br>
+                <label for="major">Enter your preferred Major of Study</label><br></br>
+                <h:inputText  id="major" value="#{studentController.theModel.majorChoice}"/><br></br>
+                <br></br>
+                <h:commandButton id="submitID" value="Update" action="#{studentController.updateThis()}"/>
+                <h:commandButton id="Home" value="Update" action="studentEn.xhtml"/><br></br><br></br>
+                <h:outputText value="#{studentController.updateStatus}" id="updateStatus"/><br></br>
+         
+        <p:commandButton id="submit" value="Submit Appointment"/>
+        
+                </h:panelGrid>
+            </h:form>
+        
+        
+<!--                <label for="firstName">First Name</label><br></br>
+                <h:inputText id="firstName" value="#{studentController.theModel.firstName}" required="true" requiredMessage="Please enter First Name"/><br></br>
+                 <f:validateLength minimum = "2"  maximum = "25" /> <br></br>
+                <br></br>
+                <label for="lastName">Last Name</label><br></br>
+                <h:inputText id="lastName" value="#{studentController.theModel.lastName}" required="true" requiredMessage="Please enter Last Name"/><br></br>
+                 <f:validateLength minimum = "2"  maximum = "25" /><br></br>
+                <br></br>
+                <label for="userID">User ID</label><br></br>
+                <h:outputText id="userID" value="#{studentController.theModel.userID}" /><br></br>
+                <br></br>
+                <label for="email">Email</label><br></br>
+                <h:inputText class="form-control input-sm" id="email" required="true" label="email"  requiredMessage="Please enter your email address." validatorMessage="Invalid email format" value="#{studentController.theModel.email}"/><br></br>
+                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /><br></br>
                 <label for="question">Security Question</label><br></br>
                 <h:inputText id="question" value="#{studentController.theModel.question}" required="true" requiredMessage="Please enter Security Question"/><br></br>
                 <br></br>
@@ -64,10 +146,10 @@ and open the template in the editor.
                 <h:commandButton id="Home" value="Update" action="studentEn.xhtml"/><br></br><br></br>
                 <h:outputText value="#{studentController.updateStatus}" id="updateStatus"/><br></br>
                 <br></br>
-                
+                -->
 
 
-            </h:form>
+            
         </h:body>
 </html>
 

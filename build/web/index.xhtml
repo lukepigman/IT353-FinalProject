@@ -5,20 +5,27 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
+    <f:metadata>
+    
+        <f:event type="preRenderView" listener="#{uniController.grabShowcase()}" />
+    </f:metadata>
      
     <h:head>
     </h:head>
  
-    <h:body>
+    <h:body class="red">
         <h:outputStylesheet library="css" name="newcss.css"  />
 <h:form>  
     
     <p:growl id="messages2"/>
  
-    <p:menubar>
-                <p:menuitem value="home" icon="pi pi-file" action="index.xhtml"/>
+    <p:menubar id="tb" class="yoyom">
+        <p:menuitem >
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index.xhtml"/>
 
-                <p:submenu label="Student" icon="pi pi-question">
+                <p:submenu label="Student" >
                     <p:menuitem value="Login" action="StudentLogin.xhtml" />
                     <p:menuitem value="Signup" action="StudentSignup.xhtml" />
                     <p:menuitem value="Recover Password" action="StudentPass.xhtml" />
@@ -32,17 +39,14 @@
 
 
                 <f:facet name="options">
-                    <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
-                    <p:commandButton type="button" value="Logout" icon="pi pi-home" />
+                    
                 </f:facet>
 
             </p:menubar>
+    <p:sticky target="tb" />
     
     <p:growl id="messages"/>
-    <p:sidebar widgetVar="sidebar1" position="top" baseZIndex="10000">
-    <h1 style="font-weight:normal">Successful Login!</h1>
-    <p:commandButton value="Cancel" oncomplete="PF('sidebar1').hide()"/>
-    </p:sidebar>
+    
     
     <p:menubar>
         
@@ -54,8 +58,9 @@
          </p:submenu>
  
         <p:submenu label="Services" >
-            <p:menuitem value="Find Student Account" action="UniversityLogin.xhtml" />
-            <p:menuitem value="Find School Account" url="#" />
+            <p:menuitem value="Find Schools" action="StudentLogin.xhtml" />
+            <p:menuitem value="Find Students" url="UniversityLogin.xhtml" />
+            <p:menuitem value="Schedule Appointment" action="StudentAppointment.xhtml"   />
         </p:submenu>
         
         <p:submenu label="Help" >
@@ -82,10 +87,7 @@
         <p:menuitem value="Quit" url="http://www.primefaces.org"  />
  
         <f:facet name="options">
-            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Username"/>
-            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Password"/>
-            <p:commandButton value="Login" oncomplete="PF('sidebar1').show()" icon="pi pi-home" />
-            <p:commandButton value="Signup" oncomplete="PF('sidebar1').show()" icon="pi pi-home" />
+            
         </f:facet>
     </p:menubar>
     <p:growl id="messages11" showDetail="true"/>
@@ -96,7 +98,7 @@
         <p:menuitem value="Delete"  ajax="false" />
         <p:menuitem value="Homepage" url="http://www.primefaces.org" />
     </p:contextMenu>
-    <p:tieredMenu style="width:13%; height: 1000px; float: left;" class="cont3">
+    <p:tieredMenu style="width:8%; height: 1000px; float: left;" class="cont3" >
         <p:submenu label="Browse Schools"  style="color: black">
             <p:submenu label="By State"  style="color: black">
                 <p:submenu label="Illinois"  style="color: black">
@@ -143,10 +145,9 @@
             <p:menuitem value="Mobile" />
         </p:submenu>
     </p:tieredMenu>
-     
     <p:fieldset class="cont"  style="margin-bottom:1px; height: auto">
-        <h:panelGrid columns="2" cellpadding="5">
-            <p:graphicImage value="resources/images/pic12.png" />
+    <h:panelGrid columns="2" cellpadding="5">
+            <p:graphicImage value="resources/images/pic12.PNG" />
             <h:outputText
                 value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
                 His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
@@ -154,39 +155,39 @@
                 but given to ruthless violence whenever anything stands against the good of the family." />
         </h:panelGrid>
         
-        <h:panelGrid columns="2" cellpadding="5" class="cont2">
-            <p:graphicImage value="resources/images/pic7.jpg" />
-            <h:outputText
-                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
-                but given to ruthless violence whenever anything stands against the good of the family." />
-            <p:commandButton value="Click to see ISU's homepage!" style="position: center" />
+        <p:dataScroller id ="car2" value="#{uniController.showcase}" var="car" chunkSize="5">
+        <h:panelGrid columns="2" style="width:auto" columnClasses="logo,detail">
+            <p:graphicImage style="margin-right: 5px" value="resources/images/#{car.about}" /> 
+ 
+            <p:outputPanel style="margin: 0; float: left  ">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="University:" />
+                    <h:outputText value="#{car.uniName}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="State:" />
+                    <h:outputText value="#{car.state}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Minimum ACT:" />
+                    <h:outputText value="#{car.ACTReq}" style="font-weight: bold"/>
+                    
+                    <h:outputText value="University Admissions Email: " />
+                    <h:outputText value="#{car.uniEmail}" style="font-weight: bold"/>
+                    
+                    <h:commandLink value="Click to view #{car.uniID}'s profile" action="#{uniController.grabShowcaseDetails(car.uniID)}"/>
+                </h:panelGrid>
+            </p:outputPanel>
         </h:panelGrid>
-        <h:panelGrid columns="2" cellpadding="5" style="margin-top: 5px" class="cont4">
-            <p:graphicImage value="resources/images/pic13.jpg" />
-            <h:outputText
-                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
-                but given to ruthless violence whenever anything stands against the good of the family." />
-            <p:commandButton value="Click to see UofI's homepage!" style="position: center" />
-        </h:panelGrid>
-        <h:panelGrid columns="2" cellpadding="5" style="margin-top: 5px" class="cont5">
-            <p:graphicImage value="resources/images/pic16.png" />
-            <h:outputText
-                value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
-                Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
-                but given to ruthless violence whenever anything stands against the good of the family." />
-            <p:commandButton value="Click to see EIU's homepage!" style="position: center" />
-        </h:panelGrid>
-    </p:fieldset>
+            <p:separator />
+    </p:dataScroller>
+        
+        </p:fieldset>
+     
+
     
     
     
     
-    <p:accordionPanel style="float: right; margin-left: 1px; width: 86%" class="abc">
+    <p:accordionPanel style="float: right; margin-left: 1px; width: auto" class="abc">
         <p:tab title="About Uconnect" titleStyle="color:black"  >
             <h:panelGrid columns="2" cellpadding="15" >
                 <p:graphicImage value="resources/images/pic10.jpg" />
@@ -214,13 +215,7 @@
         </p:tab>
     </p:accordionPanel>
     
-    <p:stack icon="/resources/demo/images/dock/stack.png" expanded="true">
-    <p:menuitem value="Home" icon="/resources/demo/images/dock/home.png" url="#"/>
-    <p:menuitem value="Mussic" icon="/resources/demo/images/dock/music.png" url="#"/>
-    <p:menuitem value="Video" icon="/resources/demo/images/dock/video.png" url="#"/>
-    <p:menuitem value="Email" icon="/resources/demo/images/dock/email.png" url="#"/>
-    <p:menuitem value="Portfolio" icon="/resources/demo/images/dock/portfolio.png" url="#"/>
-</p:stack>
+    
 </h:form>
     </h:body>
 </html>

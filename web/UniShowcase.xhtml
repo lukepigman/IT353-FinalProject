@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>This is our Showcase University of the Month
+    </h:head>
+ 
+    <h:body>
+        <h:outputStylesheet library="css" name="newcss.css"  />
+<h:form>  
+    
+    <p:growl id="messages2"/>
+ 
+    <p:menubar>
+                <p:menuitem value="home" icon="pi pi-file" action="index.xhtml"/>
+
+                <p:submenu label="Student" icon="pi pi-question">
+                    <p:menuitem value="Login" action="StudentLogin.xhtml" />
+                    <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="StudentPass.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="University" icon="pi pi-question">
+                    <p:menuitem value="Login" action="UniversityLogin.xhtml" />
+                    <p:menuitem value="Signup" action="UniversitySignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="UniPass.xhtml" />
+                </p:submenu>
+    </p:menubar>
+</h:form>
+        <h:form>
+            
+            </h:form>
+        <p:panel class="cont2">
+            <p:graphicImage value="resources/images/pic7.jpg" />
+            <br></br>
+            <label style="Float:left" for="NAME">University name: </label>
+            <h:outputText  id="Name" value="#{uniController.theModel.uniName}"/><br></br>
+            
+            
+            <label style="Float:left" for="SAT">University Location:</label><br></br>
+            <h:outputText  id="town" value="#{uniController.theModel.town}"/><label for="town">, </label><h:outputText  id="state" value="#{uniController.theModel.state}"/>
+            
+            
+            <label for="zip"></label>
+            <h:outputText id="zip" value="#{uniController.theModel.zip}"/><br></br>
+            <br></br>
+            <label style="Float:left" for="ACT">University ACT Requirement: </label>
+            <h:outputText  id="ACT" value="#{uniController.theModel.ACTReq}"/><br></br>
+            <br></br>
+            <label for="SAT">University SAT Requirement: </label>
+            <h:outputText  id="SAT" value="#{uniController.theModel.SATReq}"/><br></br><br></br>
+            <label for="about">Other relevant information about University</label><br></br>
+            <h:outputText  id="about" value="#{uniController.theModel.about}"/><br></br>
+        </p:panel >
+    </h:body>
+</html>
+

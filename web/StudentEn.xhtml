@@ -6,45 +6,80 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
      
-    <h:head>You have been Successfully Logged in
+    <h:head>
     </h:head>
  
-    <h:body>
+    <h:body style="margin: 0" >
         
 <h:form>  
     <p:growl id="messages"/>
  
-    <p:menubar>
-        <p:menuitem value="Home" icon="pi pi-file" action="index.xhtml"/>
- 
-        <p:submenu label="Student" icon="pi pi-question">
-            <p:menuitem value="My Profile" action="StudentEn.xhtml" />
-            <p:menuitem value="Search" action="StudentSignup.xhtml" />
-        </p:submenu>
- 
- 
-        <f:facet name="options">
-            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
-            <p:commandButton type="button" value="Logout" icon="pi pi-home" />
-        </f:facet>
-    </p:menubar>
-</h:form>
-        
-                <h:form>
-                        <div class="form-group">
-                            
-                                User ID: <h:outputText id="userID" value="#{studentController.theModel.userID}"/> </div>
-                        <div class="form-group">
-                            <label for="userID">Would you like to update your profile?</label> <br></br>
+    <p:menubar id="tb" style="background: black; margin: 0">
+        <p:menuitem >
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index2.xhtml"/>
 
-                                <h:commandButton class="btn btn-default btn-block btn-sm btn-info" value="Update Profile" action="#{studentController.findProfile()}"  />
-                            </div>
-                 </h:form>
-                    <h:form>
-                            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search universities by GPA Requirement" value="studentController.theModel.GPA"/>
-                            <p:commandButton type="button" value="Search" onclick="#{studentController.search()}"/>
-                            <!-- <f:ajax ></f:ajax> -->
-                            <h:outputText value="#{studentController.searchStatus}"></h:outputText>
+                <p:submenu label="Student" icon="pi pi-question">
+                    <p:menuitem value="Login" action="StudentLogin.xhtml" />
+                    <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="StudentPass.xhtml" />
+                </p:submenu>
+
+                <p:submenu label="University" icon="pi pi-question">
+                    <p:menuitem value="Login" action="UniversityLogin.xhtml" />
+                    <p:menuitem value="Signup" action="UniversitySignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="UniPass.xhtml" />
+                </p:submenu>
+
+
+                <f:facet name="options">
+                    <p:outputLabel value="Welcome back,  #{studentController.theModel.firstName} #{studentController.theModel.lastName}"/>
+                </f:facet>
+
+            </p:menubar>
+    <p:sticky target="tb" />
+
+        
+                
+                    
+                            
+                            
+                            
+               <h:panelGrid columns="2">
+               
+                <h:outputText  value="User ID: " />
+                <h:outputText id="counter2" value="#{studentController.theModel.userID}"/>
+                
+                <h:outputText value="Keyup: " />
+                <p:inputText id="counter" value="#{uniController.searchTest}">
+                    <p:ajax event="keyup" update="car2" listener="#{uniController.search()}" />
+                </p:inputText>
+                
+                <h:outputText value="Here you can search for different schools to find the right fit for you!"></h:outputText>
+                
+                  </h:panelGrid>
+                            
+    <p:dataScroller id ="car2" value="#{uniController.result2}" var="car" chunkSize="5">
+        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+            <p:graphicImage style="margin-right: 5px" value="resources/images/#{car.about}" /> 
+ 
+            <p:outputPanel style="margin: 0; float: left  ">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{car.uniName}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Year:" />
+                    <h:outputText value="#{car.uniID}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Color:" />
+                    <h:outputText value="#{car.major}" style="font-weight: bold"/>
+                    
+                    <h:commandLink value="Click to view #{car.uniID}'s profile" action="#{uniController.grabDetails(car.uniID)}"/>
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+    </p:dataScroller>
                             
                     </h:form>
     </h:body>

@@ -7,16 +7,20 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:i="http://xmlns.jcp.org/jsf/html">
      
-    <h:head>Student Login Page
+    <h:head>
     </h:head>
  
-    <h:body>
+    <h:body class="red">
+        <h:outputStylesheet library="css" name="newcss.css"  />
         
 <h:form>  
     <p:growl id="messages"/>
  
-    <p:menubar>
-                <p:menuitem value="home" icon="pi pi-file" action="index.xhtml"/>
+    <p:menubar id="tb" class="yoyom">
+        <p:menuitem>
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index.xhtml"/>
 
                 <p:submenu label="Student" icon="pi pi-question">
                     <p:menuitem value="Login" action="StudentLogin.xhtml" />
@@ -37,19 +41,24 @@
                 </f:facet>
 
             </p:menubar>
+    <p:sticky target="tb" />
 </h:form>
         
-        <i:form>
+        <p:panel id="basic" header="Basic" style="width:40%; height: 300px; float:top; margin-left: 25%;  margin-top: 50px; background: ghostwhite; color:black; border: none">
+        <i:form style="color: black; margin-left: 40%">
                         
-            <label for="userID">User ID</label><br></br>
+            <label  for="userID">User ID</label><br></br>
                 <i:inputText value="#{studentController.theModel.userID}" id="userID" /><br></br>
                         <br></br>
-            <label for="password">Password</label>
+            <label for="password">Password</label><br></br>
             <i:inputSecret value="#{studentController.theModel.password}" id="password"/><br></br>
                         
             <i:commandButton class="btn btn-default btn-block btn-sm btn-success" value="Login" action="#{studentController.login()}" /><br></br>
             <h:outputText value="#{StudentController.loginStatus}" id="updateStatus"/><br></br>
                         <br></br>
             </i:form>
+        </p:panel>
+        
+        
     </h:body>
 </html>

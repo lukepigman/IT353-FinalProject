@@ -6,6 +6,7 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:g="http://java.sun.com/jsf/core">
+    
      
     <h:head>Student Signup Page
     </h:head>
@@ -40,8 +41,9 @@
 </h:form>
         
         <h:form>
+            <p:panelGrid columns="2">
             <label for="firstName">First Name</label>
-                            <h:inputText id="firstName" value="#{studentController.theModel.firstName}" required="true" requiredMessage="Please enter First Name">
+            <h:inputText id="firstName" value="#{studentController.theModel.firstName}" required="true" requiredMessage="Please enter First Name">
                                 <f:validateLength minimum = "2"  maximum = "25" />
                             </h:inputText>
                         
@@ -72,7 +74,7 @@
                             <label for="password2">Confirm Password</label>
                             <h:inputSecret  id="password2" value="#{studentController.theModel.passwordConfirm}"  required="true" requiredMessage="Please confirm Password"/>
                         
-                            <h:outputText value="#{loginController.loginStatus}" id="loginStatus"/>
+<!--                            <h:outputText value="#{loginController.loginStatus}" id="loginStatus"/>-->
                         
                             <label for="GPA">Enter your High School GPA</label>
                             <h:inputText  id="GPA" value="#{studentController.theModel.GPA}"/>
@@ -93,7 +95,9 @@
                                    
                                 <!-- <h:outputText value="#{studentController.loginStatus}" id="passCheck" /> -->
                             
-                    </h:form>
+                    
+                                </p:panelGrid>
+        </h:form>
         
         
     </h:body>

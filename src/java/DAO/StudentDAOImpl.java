@@ -30,7 +30,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";// connection string
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             
 
@@ -81,7 +81,7 @@ public class StudentDAOImpl implements StudentDAO{
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";
             // if doing the above in Oracle:  String myDB = "jdbc:oracle:thin:@oracle.itk.ilstu.edu:1521:ora478";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
@@ -139,7 +139,7 @@ public class StudentDAOImpl implements StudentDAO{
         }
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String updateString;
             Statement stmt = DBConn.createStatement();
@@ -180,7 +180,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
         String query = "SELECT * FROM ITKSTU.STUDENT "
-               + "WHERE USERID = '" + userID +"' and EMAIL = '" + email +"'  and QUESTION = '" + question + "' and ANSWER = '" + answer + "'";
+               + "WHERE USERID = '" + userID +"' and EMAIL = '" + question +"'  and QUESTION = '" + answer + "' and ANSWER = '" + email + "'";
                 
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
@@ -192,7 +192,7 @@ public class StudentDAOImpl implements StudentDAO{
     public ArrayList findStudentGPA(String GPA) {
     
         String query = "SELECT * FROM ITKSTU.STUDENT "
-                + "WHERE GPA = '" + GPA +"'";
+                + "WHERE GPA LIKE '" + GPA +"%' OR FIRSTNAME LIKE '" + GPA + "%' OR LASTNAME LIKE '" + GPA +  "%' OR EMAIL LIKE '" + GPA + "%'";
                 
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
@@ -221,5 +221,9 @@ public class StudentDAOImpl implements StudentDAO{
         return aLoginCollection;
         
     }
+    
+    
+    
+    
     
 }

@@ -21,5 +21,10 @@ public interface UniDAO {
     public ArrayList findLogin(String userID, String password);
     public int updateProfile(UniBean pro);
     public ArrayList recoverPass(String userID);
+    public ArrayList findUniversities(String userID) ;
+    public ArrayList findShowcaseUniversities();
+    public void updateShowcase(String userID);
+    public ArrayList findAll();
+    public void removeUpdateShowcase(String userID);
     
 }

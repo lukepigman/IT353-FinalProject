@@ -31,7 +31,7 @@ public class UniDAOImpl implements UniDAO {
 
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/Project353";// connection string
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";// connection string
             Connection DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
             String insertString;
@@ -39,14 +39,15 @@ public class UniDAOImpl implements UniDAO {
             insertString = "INSERT INTO itkstu.UNIVERSITY VALUES ('"
                     + aProfile.getUniID()
                     + "','" + aProfile.getUniPass()
+                    + "','" + aProfile.getUniName()
                     + "','" + aProfile.getMajor()
                     + "','" + aProfile.getState()
                     + "','" + aProfile.getTown()
+                    
                     + "','" + aProfile.getZip()
                     + "','" + aProfile.getACTReq()
                     + "','" + aProfile.getSATReq()
-                    + "','" + aProfile.getAbout()
-                    + "','" + aProfile.getUniName()
+                    + "','" + aProfile.getAbout() 
                     + "','" + aProfile.getUniEmail()
                     + "')";
 
@@ -78,7 +79,7 @@ public class UniDAOImpl implements UniDAO {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
 
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";
             // if doing the above in Oracle:  String myDB = "jdbc:oracle:thin:@oracle.itk.ilstu.edu:1521:ora478";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
 
@@ -142,6 +143,29 @@ public class UniDAOImpl implements UniDAO {
         return aLoginCollection;
 
     }
+    @Override
+    public ArrayList findUniversities(String userID) {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+        String query = "SELECT * FROM ITKSTU.UNIVERSITY "
+                + "WHERE UNIVERSITYID LIKE '" + userID +"%' OR NAME LIKE '" + userID + "%' OR TOWN LIKE '" + userID +  "%' OR STATE LIKE '" + userID + "%'";
+
+        ArrayList aLoginCollection = selectProfilesFromDB(query);
+        return aLoginCollection;
+
+    }
+    
+    @Override
+    public ArrayList findShowcaseUniversities() {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+        String query = "SELECT * FROM ITKSTU.UNIVERSITY "
+                + "WHERE ZIP = '1'";
+
+        ArrayList aLoginCollection = selectProfilesFromDB(query);
+        return aLoginCollection;
+
+    }
 
     @Override
     public int updateProfile(StudentBean stu) {
@@ -159,7 +183,7 @@ public class UniDAOImpl implements UniDAO {
         }
         int rowCount = 0;
         try {
-            String myDB = "jdbc:derby://localhost:1527/project353";
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";
             DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
             String updateString;
             Statement stmt = DBConn.createStatement();
@@ -202,6 +226,79 @@ public class UniDAOImpl implements UniDAO {
 
         ArrayList aLoginCollection = selectProfilesFromDB(query);
         return aLoginCollection;
+
+    }
+    @Override
+    public void updateShowcase(String userID) {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+         Connection DBConn = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        int rowCount = 0;
+        try {
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";
+            DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String updateString;
+            Statement stmt = DBConn.createStatement();
+            
+            updateString = "UPDATE ITKSTU.UNIVERSITY SET "
+                    + "ZIP = '1' WHERE UNIVERSITYID = '" + userID + "'";
+            rowCount = stmt.executeUpdate(updateString);
+            System.out.println("USERS updateString = " + updateString);
+
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        
+
+    }
+    
+    @Override
+    public ArrayList findAll() {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+        String query = "SELECT * FROM ITKSTU.UNIVERSITY ";
+//                
+                
+        ArrayList aLoginCollection = selectProfilesFromDB(query);
+        return aLoginCollection;
+        
+    }
+    
+    @Override
+    public void removeUpdateShowcase(String userID) {
+
+        // if interested in matching wild cards, use: LIKE and '%" + deptNo + "%'";
+         Connection DBConn = null;
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
+            System.exit(0);
+        }
+        int rowCount = 0;
+        try {
+            String myDB = "jdbc:derby://10.110.10.26:1527/dgarg_fall2018_Project353";
+            DBConn = DriverManager.getConnection(myDB, "itkstu", "student");
+            String updateString;
+            Statement stmt = DBConn.createStatement();
+            
+            updateString = "UPDATE ITKSTU.UNIVERSITY SET "
+                    + "ZIP = '0' WHERE UNIVERSITYID = '" + userID + "'";
+            rowCount = stmt.executeUpdate(updateString);
+            System.out.println("USERS updateString = " + updateString);
+
+            DBConn.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        
 
     }
 

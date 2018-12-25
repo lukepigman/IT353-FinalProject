@@ -6,7 +6,9 @@
 package controller;
 
 import DAO.StudentDAOImpl;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -38,6 +40,10 @@ public class StudentController {
     private String text;
     private String subject;
     private String recover;
+    private Date date2;
+    private ArrayList<StudentBean> result2;
+    private List<StudentBean> result3;
+    private boolean logged = false;
 
     public StudentController() {
         theModel = new StudentBean();
@@ -125,7 +131,12 @@ public class StudentController {
         ArrayList result = aLoginDAO.findLogin(theModel.getUserID(), theModel.getPassword());
         setTheModel((StudentBean) result.get(0));
         if (theModel != null) {
-            return "StudentEn.xhtml";
+            if(theModel.getUserID().equals("admin") && theModel.getPassword().equals("admin")){
+                return "admin.xhtml";
+            }
+            logged = true;
+            return "index2.xhtml";
+            
         } else {
             setLoginStatus("Login Failed");
             return "StudentLogin.xhtml";
@@ -157,18 +168,94 @@ public class StudentController {
         
     
 
-    public void search() {
+     public void search()
+    {
         int counter = 0;
+        result = " ";
+        
         StudentDAOImpl aStu = new StudentDAOImpl();
+        //setResult1(aStu.findStudentGPA(getSearchTest()));
         ArrayList result1 = aStu.findStudentGPA(searchTest);
-        if (result1.size() > 0) {
-            counter++;
-            result = result1.get(0).toString();
-            System.out.println(result);
-        } else {
-            counter++;
-            result = Integer.toString(counter);
+        result2 = result1;
+        setTheModel(new StudentBean());
+        
+        
+        
+    }
+    public String grabDetails(String a){
+        for (int i = 0; i < result2.size();i++){
+            if(result2.get(i).getUserID().equals(a)){
+                setTheModel(result2.get(i));
+                return "StuDetails.xhtml";
+            } 
         }
+        
+        
+        return "error.xhtml";
+    }
+    
+    public void grab(){
+        result = result2.get(0).toString();
+        
+        
+       
+        
+    }
+
+    /**
+     * @return the searchTest
+     */
+    public String getSearchTest() {
+        return searchTest;
+    }
+
+    /**
+     * @param searchTest the searchTest to set
+     */
+    public void setSearchTest(String searchTest) {
+        this.searchTest = searchTest;
+    }
+
+//    /**
+//     * @return the result1
+//     */
+//    public ArrayList getResult1() {
+//        return result1;
+//    }
+//
+//    /**
+//     * @param result1 the result1 to set
+//     */
+//    public void setResult1(ArrayList result1) {
+//        this.result1 = result1;
+//    }
+
+    /**
+     * @return the result2
+     */
+    public ArrayList getResult2() {
+        return result2;
+    }
+
+    /**
+     * @param result2 the result2 to set
+     */
+    public void setResult2(ArrayList result2) {
+        this.result2 = result2;
+    }
+
+    /**
+     * @return the result3
+     */
+    public List<StudentBean> getResult3() {
+        return result3;
+    }
+
+    /**
+     * @param result3 the result3 to set
+     */
+    public void setResult3(List<StudentBean> result3) {
+        this.result3 = result3;
     }
 
     public String sendEmail() {
@@ -224,10 +311,10 @@ public class StudentController {
     }
     
 
-    public void sendPasswordEmail() {
+    public void sendPasswordEmail(String myEmail) {
 
         // Recipient's email ID needs to be mentioned.
-        String to = "ldpigma@ilstu.edu";
+        String to = myEmail;
 
         // Sender's email ID needs to be mentioned
         String from = "IT353Uconnect@gmail.com";
@@ -265,7 +352,7 @@ public class StudentController {
             message.setSubject("Password");
 
             // Send the actual HTML message, as big as you like
-            message.setContent("<p>Hello " + theModel.getEmail() + ", your password is: " + theModel.getPassword() + "</p>", "text.html");
+            message.setContent("<p>Hello " + theModel.getEmail() + ", your password is: " + theModel.getPassword() + "</p>", "text/html;charset=UTF-8");
 
             // Send message
             Transport.send(message);
@@ -291,30 +378,28 @@ public class StudentController {
      */
     public void recoverPass() {
         StudentDAOImpl aLoginDAO = new StudentDAOImpl();
-        ArrayList result = aLoginDAO.recoverPass(theModel.getUserID(), theModel.getEmail(), theModel.getQuestion(), theModel.getAnswer());
-        setTheModel((StudentBean) result.get(0));
+        ArrayList result1 = aLoginDAO.recoverPass(theModel.getUserID(), theModel.getEmail(), theModel.getQuestion(), theModel.getAnswer());
+        setTheModel((StudentBean) result1.get(0));
         if (getTheModel() != null) {
-            sendPasswordEmail();
+            sendPasswordEmail(theModel.getEmail());
             recover = "an Email will be sent to " + theModel.getEmail();
         } else {
             recover = "error.xhtml";
         }
     }
-
-    /**
-     * @return the searchTest
-     */
-    public String getSearchTest() {
-        return searchTest;
+    public String clearBean() {
+        setTheModel((StudentBean) null);
+        logged = false;
+        if (getTheModel() == null) {
+            return "index2.xhtml";
+        } else {
+            return "error.xhtml";
+        }
     }
 
-    /**
-     * @param searchTest the searchTest to set
-     */
-    public void setSearchTest(String searchTest) {
-        this.searchTest = searchTest;
-    }
+  
 
+ 
     /**
      * @return the text
      */
@@ -341,6 +426,34 @@ public class StudentController {
      */
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    /**
+     * @return the date2
+     */
+    public Date getDate2() {
+        return date2;
+    }
+
+    /**
+     * @param date2 the date2 to set
+     */
+    public void setDate2(Date date2) {
+        this.date2 = date2;
+    }
+
+    /**
+     * @return the logged
+     */
+    public boolean isLogged() {
+        return logged;
+    }
+
+    /**
+     * @param logged the logged to set
+     */
+    public void setLogged(boolean logged) {
+        this.logged = logged;
     }
 
 }

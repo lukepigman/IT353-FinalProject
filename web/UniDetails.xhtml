@@ -6,57 +6,96 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <h:head><h:outputText id="uniName" value="#{uniController.theModel.uniName}"/>
+    <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     </h:head>
 
-    <h:body>
-
+    <h:body style="red">
+<h:outputStylesheet library="css" name="newcss.css"  />
         <h:form>  
             <p:growl id="messages"/>
 
-            <p:menubar>
-                <p:menuitem value="home" icon="pi pi-file" action="index.xhtml"/>
+            <p:menubar id="tb" class="yoyom">
+        <p:menuitem >
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index3.xhtml"/>
 
-                <p:submenu label="Student" icon="pi pi-question">
+                <p:submenu label="Student" >
                     <p:menuitem value="Login" action="StudentLogin.xhtml" />
                     <p:menuitem value="Signup" action="StudentSignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="StudentPass.xhtml" />
                 </p:submenu>
 
                 <p:submenu label="University" icon="pi pi-question">
                     <p:menuitem value="Login" action="UniversityLogin.xhtml" />
                     <p:menuitem value="Signup" action="UniversitySignup.xhtml" />
+                    <p:menuitem value="Recover Password" action="UniPass.xhtml" />
                 </p:submenu>
 
+
                 <f:facet name="options">
-                    <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
-                    <p:commandButton type="button" value="Logout" icon="pi pi-home" />
+                    <p:outputLabel value="Welcome back,  #{uniController.theModel.uniName} "/>
+                    <p:commandButton  style="margin-left: 5px" value="Logout" action="index.xhtml"/>
                 </f:facet>
+
             </p:menubar>
+    <p:sticky target="tb" />
         </h:form>
-        <div class="basicPanel" style="font-weight: bold">
-             <h:outputText id="Name" value="#{uniController.theModel.uniName}"/> 
-         
-        </div>
+        
 
         <h:form>
-            <div class="form-group">
+           <p:panel header="University Profile" style=" align-content: center">
+            <p:panelGrid columns="2">
+                <label for="pic">Logo</label>
+                <p:graphicImage id="pic" style="margin-right: 5px" value="resources/images/#{uniController.theModel.about}" />
+            <label for="firstName">First Name</label>
+            <h:outputText id="firstName" value="#{uniController.theModel.uniID}" >
+                                
+                            </h:outputText>
+                        
+                            <label for="lastName">Name: </label>
+                            <h:outputText id="lastName" value="#{uniController.theModel.town}" >
+                             
+                             </h:outputText> 
+                        
+                            <label for="userID">Location: </label>
+                            <h:outputText id="userID" value="#{uniController.theModel.state}, #{uniController.theModel.major}" />
+                        
+                            <label for="email">Email</label>
+                            <h:outputText id ="email"  value="#{uniController.theModel.uniEmail}">
+                                
+                                
+                            </h:outputText>
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+<!--                            <label for="GPA">High School GPA</label>
+                            <h:outputText  id="GPA" value="#{studentController.theModel.GPA}"/>
+                        
+                            <label for="ACT">ACT Score</label>
+                            <h:outputText  id="ACT" value="#{studentController.theModel.ACT}"/>
+                        
+                            <label for="SAT">SAT Score</label>
+                            <h:outputText  id="SAT" value="#{studentController.theModel.SAT}"/>
 
-               
-            <h:outputText id="town" value="#{uniController.theModel.town}"/> 
-            ,
-            <h:outputText id="state" value="#{uniController.theModel.state}"/>
-            <br></br>
-           
-            <u> Admission requirements</u>
-            <br></br>
-            ACT: <h:outputText id="actReq" value="#{uniController.theModel.ACTReq}"/><br></br>
-            SAT: <h:outputText id="satReq" value="#{uniController.theModel.SATReq}"/>
-            <label for="userID">Apply for admission</label> <br></br>
-            <br></br>
-            <h:commandButton value="Apply" action="admission.xhtml"  />
-            <br></br>
-            </div>
+                            <label for="school">preferred University</label>
+                            <h:outputText  id="school" value="#{studentController.theModel.schoolChoice}"/>
+                        
+                            <label for="major">Preferred Major of Study</label>
+                            <h:outputText  id="major" value="#{studentController.theModel.majorChoice}"/>-->
+                        
+                                
+                                   
+                                <!-- <h:outputText value="#{studentController.loginStatus}" id="passCheck" /> -->
+                            
+                    
+                                </p:panelGrid>
+    </p:panel>
         </h:form>
        
     </h:body>

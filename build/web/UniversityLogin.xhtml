@@ -6,16 +6,19 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
      
-    <h:head>University Signup Page
+    <h:head>
     </h:head>
  
-    <h:body>
-        
+    <h:body class="red">
+        <h:outputStylesheet library="css" name="newcss.css"  />
 <h:form>  
     <p:growl id="messages"/>
  
-    <p:menubar>
-                <p:menuitem value="home" icon="pi pi-file" action="index.xhtml"/>
+    <p:menubar id="tb" class="yoyom">
+        <p:menuitem >
+        <p:graphicImage class="img1" value="#{resource['images:pic17.PNG']}" />
+        </p:menuitem>
+                <p:menuitem value="home" icon="ui-icon-home" action="index.xhtml"/>
 
                 <p:submenu label="Student" icon="pi pi-question">
                     <p:menuitem value="Login" action="StudentLogin.xhtml" />
@@ -36,16 +39,18 @@
                 </f:facet>
 
             </p:menubar>
+    <p:sticky target="tb" />
 </h:form>
         
-        <h:form>
+        <p:panel id="basic"  style="width:40%; height: 300px; float:top; margin-left: 25%;  margin-top: 50px; background: #cccccc; color:black; ; border-width:  50px">   
+            <h:form style="color: #0099ff; margin-left: 40%; margin-top: 50px">    
                         <div class="form-group">
-                            <label for="userID">User ID</label>
-                            <h:inputText value="#{uniController.theModel.uniID}" class="form-control input-sm" id="userID" />
+                            <label style="font-size: 18px; font-family: sans-serif; text-align: center" for="userID">User ID</label><br/>
+                            <h:inputText style="border: none; border-radius: 1px; font-size: 18px" value="#{uniController.theModel.uniID}" class="form-control input-sm" id="userID" />
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <h:inputSecret value="#{uniController.theModel.uniPass}" class="form-control input-sm" id="password"/>
+                            <label style="font-size: 18px; font-family: sans-serif; text-align: center" for="password">Password</label><br/>
+                            <h:inputSecret style="border: none; border-radius: 1px; font-size: 18px" value="#{uniController.theModel.uniPass}" class="form-control input-sm" id="password"/>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -55,6 +60,8 @@
                             
                            
                         </div>
+                
                     </h:form>
+        </p:panel>
     </h:body>
 </html>
